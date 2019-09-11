@@ -13,14 +13,12 @@ dial_book = {
  
 # Get city names from the hash
 def get_city_names(somehash)
-  somehash.each {|k,v| puts "#{k}"}
+  somehash.keys
 end
  
 # Get area code based on given hash and key
 def get_area_code(somehash, key)
-  somehash.each do |k,v|
-    puts "Area code: #{v}" if k == key
-  end
+  somehash[key]
 end
  
 # Execution flow
@@ -28,8 +26,12 @@ loop do
   puts "Do you want to lookup an area code based on a city name? (Y/N)"
   answer = gets.chomp.downcase
   break if answer != "y"
-  get_city_names(dial_book)
+  puts get_city_names(dial_book)
   puts "What city would you like to look-up?"
   city = gets.chomp.downcase
-  get_area_code(dial_book, city)
+  if dial_book.include?(city)
+    puts "The area code for #{city} is #{get_area_code(dial_book, city)}"
+  else 
+    puts "You entered an invalid city name"
+  end
 end
